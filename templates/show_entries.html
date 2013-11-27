@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+{% block body %}
+  {% if session.logged_in %}
+    <form action="{{ url_for('add_entry') }}" method="post" class="add-entry">
+      <dl>
+        <dt>タイトル:
+        <dd><input type="text" size=30 name="title">
+        <dt>本文:
+        <dd><textarea name="text" rows=5 cols=40></textarea>
+        <dd><input type="submit" value="追加">
+      </dl>
+    </form>
+  {% endif %}
+  <ul class="entries">
+  {% for entry in entries %}
+    <li><h2>{{ entry.title }}</h2>{{ entry.text|safe }}
+  {% else %}
+    <li><em>マジか！　エントリーなんて無かったんだ…</em>
+  {% endfor %}
+  </ul>
+{% endblock %}
